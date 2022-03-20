@@ -10,7 +10,7 @@ class PythonListingSpider(scrapy.Spider):
     found_listings = []
 
     def parse(self, response):
-        gallery = response.xpath('//div[@class="si-listings-gallery"]/div/div')
+        gallery = response.xpath('//div[@class="si-listings-column"]')
         for listing in gallery:
             listing_details = dict()
             listing_details['name'] = listing.xpath(
