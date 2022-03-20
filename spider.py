@@ -14,13 +14,13 @@ class PythonListingSpider(scrapy.Spider):
         for listing in gallery:
             listing_details = dict()
             listing_details['name'] = listing.xpath(
-                'div/a/div/div[@class="si-listing__title-main"]/text()').get()
+                './/div[@class="si-listing__title-main"]/text()').get()
             listing_details['description'] = listing.xpath(
-                'div/a/div/div[@class="si-listing__title-main"]/text()').get()
+                './/div[@class="si-listing__title-description"]/text()').get()
             listing_details['price'] = listing.xpath(
-                'div/div/a/div/span/text()').get()
+                './/div[@class="si-listing__photo-price"]/span/text()').get()
             listing_details['agency'] = listing.xpath(
-                'div/div/div[@class="si-listing__footer"]/div/text()').get()
+                './/div[@class="si-listing__footer"]/div/text()').get()
             self.found_listings.append(listing_details)
 
 
