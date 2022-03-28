@@ -2,3 +2,4 @@ Include
 Lib
 Scripts
 pyvenv.cfg
+*.pyc
