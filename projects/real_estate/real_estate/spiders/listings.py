@@ -15,7 +15,6 @@ class ListingsSpider(scrapy.Spider):
         gallery = response.xpath('//div[@class="si-listings-column"]')
         for listing in gallery:
             item = RealEstateItem()
-            # listing_details = dict()
             item['name'] = listing.xpath(
                 './/div[@class="si-listing__title-main"]/text()').get()
             item['description'] = listing.xpath(
@@ -25,4 +24,3 @@ class ListingsSpider(scrapy.Spider):
             item['agency'] = listing.xpath(
                 './/div[@class="si-listing__footer"]/div/text()').get()
             yield item
-            # self.found_listings.append(listing_details)
