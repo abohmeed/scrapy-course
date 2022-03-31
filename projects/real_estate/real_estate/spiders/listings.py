@@ -16,9 +16,9 @@ class ListingsSpider(scrapy.Spider):
         for listing in gallery:
             item = RealEstateItem()
             item['name'] = listing.xpath(
-                './/div[@class="si-listing__title-main"]/text()').get()
+                './/div[@class="si-listing__title-main"]/text() | .//div[@class="si-listing__neighborhood"]/span[@class="si-listing__neighborhood-place"]/text()').getall()
             item['description'] = listing.xpath(
-                './/div[@class="si-listing__title-description"]/text()').get()
+                './/div[@class="si-listing__info"]//div[@class="si-listing__info-label"]/text() | .//div[@class="si-listing__info"]//div[@class="si-listing__info-value"]/span/text()').getall()
             item['price'] = listing.xpath(
                 './/div[@class="si-listing__photo-price"]/span/text()').get()
             item['agency'] = listing.xpath(
