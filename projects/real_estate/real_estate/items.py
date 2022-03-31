@@ -3,6 +3,7 @@
 # See documentation in:
 # https://docs.scrapy.org/en/latest/topics/items.html
 
+from ntpath import join
 import scrapy
 from scrapy.loader.processors import Join, MapCompose, TakeFirst
 import json
@@ -28,6 +29,10 @@ class RealEstateItem(scrapy.Item):
     name = scrapy.Field()
     description = scrapy.Field(
         input_processor=MapCompose(description_in),
+<<<<<<< HEAD
+=======
+        # output_processor=Join()
+>>>>>>> 63a9e277d3d8ae9e03d9929e8e5b46b22778b68c
         output_processor=description_out
     )
     price = scrapy.Field()
