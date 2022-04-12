@@ -84,5 +84,6 @@ ROBOTSTXT_OBEY = True
 HTTPCACHE_ENABLED = True
 HTTPCACHE_EXPIRATION_SECS = 1000
 HTTPCACHE_DIR = 'httpcache'
+HTTPCACHE_POLICY = 'scrapy.extensions.httpcache.DummyPolicy'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
