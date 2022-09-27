@@ -40,9 +40,8 @@ ROBOTSTXT_OBEY = True
 DEFAULT_REQUEST_HEADERS = {
     'systemid': '109',
     'appid':'109',
-    'gid': 'LOCATION,INDUSTRY,EDUCATION,FAREA_ROLE'
-#   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-#   'Accept-Language': 'en',
+    'gid': 'LOCATION,INDUSTRY,EDUCATION,FAREA_ROLE',
+   'Accept': 'application/json'
 }
 
 # Enable or disable spider middlewares
