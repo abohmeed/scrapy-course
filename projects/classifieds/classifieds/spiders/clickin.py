@@ -13,7 +13,7 @@ class ClickinSpider(CrawlSpider):
         Rule(
             LinkExtractor(restrict_xpaths=(
                 # Get all the links from the start page that are contained inside the div with id of 'dashboard_block'
-                "//div[@id='dashboard_block']")),
+                "//div[@id='classifieds_list']")),
             callback="parse", follow=True
         ),
     )
