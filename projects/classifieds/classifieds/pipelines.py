@@ -5,6 +5,7 @@
 
 
 # useful for handling different item types with a single interface
+from sqlite3 import adapt
 from itemadapter import ItemAdapter
 from scrapy.exceptions import DropItem
 
@@ -12,7 +13,7 @@ from scrapy.exceptions import DropItem
 class ClassifiedsRemoveDuplicatesPipeline:
     def __init__(self):
         self.titles_seen = set()
-        
+
     def process_item(self, item, spider):
         adapter = ItemAdapter(item)
         if adapter["title"] in self.titles_seen:
@@ -20,3 +21,12 @@ class ClassifiedsRemoveDuplicatesPipeline:
         else:
             self.titles_seen.add(adapter["title"])
         return item
+
+
+class ClassifiedsRemoveNoPhonesPipeline:
+    def process_item(self, item, spider):
+        adapter = ItemAdapter(item)
+        if not adapter.get("landline") and not adapter.get("mobile"):
+            raise DropItem(f"Ad with no contact info detected: {item}")
+        else:
+            return item
