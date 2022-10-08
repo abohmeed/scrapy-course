@@ -87,7 +87,9 @@ ROBOTSTXT_OBEY = True
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 ITEM_PIPELINES = {'scrapy.pipelines.images.ImagesPipeline': 1}
-IMAGES_STORE = 'images'
+# IMAGES_STORE = 'ftp://one:1234@localhost/ftp/one' # This requires an FTP server running on localhost with username 'one' and password '1234' with the home directory set to '/ftp/one'.
+# IMAGES_STORE = 's3://images.scrapy.mydomain.com/' # This requies an S3 bucket with the specified name and valid AWS credentials to upload files to that bucket
+IMAGE_STORE = "images" # Using a directory on the local file system called images.
 IMAGES_THUMBS = {
     'small': (50, 50),
     'big': (270, 270),
