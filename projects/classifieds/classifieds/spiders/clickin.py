@@ -4,6 +4,7 @@ from scrapy.loader import ItemLoader
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 
+
 class ClickinSpider(CrawlSpider):
     name = 'clickin'
     allowed_domains = ['click.in']
@@ -11,7 +12,7 @@ class ClickinSpider(CrawlSpider):
     rules = (
         Rule(
             LinkExtractor(restrict_xpaths=(
-            # Get all the links from the start page that are contained inside the div with id of 'dashboard_block'
+                # Get all the links from the start page that are contained inside the div with id of 'dashboard_block'
                 "//div[@id='dashboard_block']")),
             callback="parse", follow=True
         ),
@@ -21,9 +22,9 @@ class ClickinSpider(CrawlSpider):
         self.log(response.url)
         item = ItemLoader(item=ClassifiedsItem(),
                           response=response, selector=response)
-        # The name is contained in h1 with class of 'clickin-post-title'
-        item.add_xpath("name", ".//h1[@class='clickin-post-title']/text()")
-        # The address, locality, landline, mobile, and price fields are all contained in  divs with 'clickin-post-blackbold' 
+        # The title is contained in h1 with class of 'clickin-post-title'
+        item.add_xpath("title", ".//h1[@class='clickin-post-title']/text()")
+        # The address, locality, landline, mobile, and price fields are all contained in  divs with 'clickin-post-blackbold'
         # so we needed to find the sibling div with the appropriate label.
         # For example, the address div has a sibling div containing 'Address' value.
         item.add_xpath("address", "//div[div='Address']/div/p/text()")
@@ -37,7 +38,3 @@ class ClickinSpider(CrawlSpider):
         item.add_xpath(
             "price", "//td[div='Price']/div[@class='clickin-post-blackbold']/text()")
         yield item.load_item()
-        # Pagination using the next page URL
-        next_page = response.xpath('//a[@title="Next Page"]/@href').get()
-        if next_page:
-            yield response.follow(next_page, callback=self.parse)
