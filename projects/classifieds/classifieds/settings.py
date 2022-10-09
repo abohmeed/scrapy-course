@@ -88,5 +88,8 @@ ROBOTSTXT_OBEY = True
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 ITEM_PIPELINES = {
     'classifieds.pipelines.ClassifiedsRemoveDuplicatesPipeline': 1,
-    'classifieds.pipelines.ClassifiedsRemoveNoPhonesPipeline': 2
+    'classifieds.pipelines.ClassifiedsRemoveNoPhonesPipeline': 2,
+    'classifieds.pipelines.MongoPipeline': 3
 }
+MONGO_URI = "mongodb://mongoadmin:secret@localhost:27017/?authSource=admin"
+MONGO_DATABASE = "scrapy"
