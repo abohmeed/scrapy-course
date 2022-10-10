@@ -86,7 +86,12 @@ ROBOTSTXT_OBEY = True
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+MYSQL_USERNAME="root"
+MYSQL_PASSWORD="admin"
+MYSQL_HOST="localhost"
+MYSQL_DATABASE="scrapy"
 ITEM_PIPELINES = {
     'classifieds.pipelines.ClassifiedsRemoveDuplicatesPipeline': 1,
-    'classifieds.pipelines.ClassifiedsRemoveNoPhonesPipeline': 2
+    'classifieds.pipelines.ClassifiedsRemoveNoPhonesPipeline': 2,
+    'classifieds.pipelines.MySQLPipeline': 3
 }
