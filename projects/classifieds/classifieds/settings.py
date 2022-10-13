@@ -6,6 +6,8 @@
 #     https://docs.scrapy.org/en/latest/topics/settings.html
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
+import os
+import hvac
 
 BOT_NAME = 'classifieds'
 
@@ -86,12 +88,22 @@ ROBOTSTXT_OBEY = True
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
-MYSQL_USERNAME="root"
-MYSQL_PASSWORD="admin"
-MYSQL_HOST="localhost"
-MYSQL_DATABASE="scrapy"
+client = hvac.Client(
+    url='http://127.0.0.1:8200',
+    token=os.environ["VAULT_ROOT_TOKEN"]
+)
+MYSQL_USERNAME = client.secrets.kv.read_secret_version(
+    path='mysql')['data']['data']['username']
+MYSQL_PASSWORD = client.secrets.kv.read_secret_version(
+    path='mysql')['data']['data']['password']
+MYSQL_HOST = "localhost"
+MYSQL_DATABASE = "scrapy"
+MONGO_URI = client.secrets.kv.read_secret_version(
+    path='mongodb')['data']['data']['uri']
+MONGO_DATABASE = "scrapy"
 ITEM_PIPELINES = {
     'classifieds.pipelines.ClassifiedsRemoveDuplicatesPipeline': 1,
     'classifieds.pipelines.ClassifiedsRemoveNoPhonesPipeline': 2,
-    'classifieds.pipelines.MySQLPipeline': 3
+    'classifieds.pipelines.MongoPipeline': 3,
+    'classifieds.pipelines.MySQLPipeline': 4
 }
