@@ -88,5 +88,7 @@ ROBOTSTXT_OBEY = True
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 ITEM_PIPELINES = {
     'classifieds.pipelines.ClassifiedsRemoveDuplicatesPipeline': 1,
-    'classifieds.pipelines.ClassifiedsRemoveNoPhonesPipeline': 2
+    'classifieds.pipelines.ClassifiedsRemoveNoPhonesPipeline': 2,
+    'classifieds.pipelines.UploadToS3Pipeline': 3
 }
+S3_BUCKET = "autos.classifieds.scrapy.mydomain.com"

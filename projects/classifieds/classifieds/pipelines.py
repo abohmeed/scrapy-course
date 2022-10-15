@@ -5,9 +5,11 @@
 
 
 # useful for handling different item types with a single interface
-from sqlite3 import adapt
 from itemadapter import ItemAdapter
 from scrapy.exceptions import DropItem
+import boto3
+import json
+import hashlib
 
 
 class ClassifiedsRemoveDuplicatesPipeline:
@@ -30,3 +32,25 @@ class ClassifiedsRemoveNoPhonesPipeline:
             raise DropItem(f"Ad with no contact info detected: {item}")
         else:
             return item
+
+
+class UploadToS3Pipeline:
+    def __init__(self, bucket):
+        self.bucket = bucket
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(
+            bucket=crawler.settings.get("S3_BUCKET")
+        )
+
+    def process_item(self, item, spider):
+        s3_client = boto3.client('s3')
+        item_bytes = json.dumps(ItemAdapter(item).asdict())
+        item_key = hashlib.md5(item_bytes.encode()).hexdigest()
+        s3_client.put_object(
+            Body=item_bytes,
+            Bucket=self.bucket,
+            Key= item_key + ".json"
+        )
+        return item
