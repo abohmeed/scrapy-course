@@ -22,15 +22,11 @@ class ClickinSpider(CrawlSpider):
         self.log(response.url)
         item = ItemLoader(item=ClassifiedsItem(),
                           response=response, selector=response)
-        # The title is contained in h1 with class of 'clickin-post-title'
         item.add_xpath("title", ".//h1[@class='clickin-post-title']/text()")
-        # The address, locality, landline, mobile, and price fields are all contained in  divs with 'clickin-post-blackbold'
-        # so we needed to find the sibling div with the appropriate label.
-        # For example, the address div has a sibling div containing 'Address' value.
         item.add_xpath("address", "//div[div='Address']/div/p/text()")
         item.add_xpath(
             "locality", "//td[div='Locality ']/div[@class='clickin-post-blackbold']/text()")
-        item.add_xpath("description", "//p[@class='clickin-desc-text']/text()")
+        item.add_xpath("description", "//div[@class='clickin-description']//p[@class='clickin-desc-text']/text()")
         item.add_xpath(
             "landline", "//div[div='Landline']/div[@class='clickin-post-blackbold']/text()")
         item.add_xpath(
