@@ -89,4 +89,9 @@ ROBOTSTXT_OBEY = True
 DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
     'scrapy_user_agents.middlewares.RandomUserAgentMiddleware': 400,
+    'rotating_free_proxies.middlewares.RotatingProxyMiddleware': 610,
+    'rotating_free_proxies.middlewares.BanDetectionMiddleware': 620,
 }
+# Path that this library uses to store list of proxies
+ROTATING_PROXY_LIST_PATH = 'proxies.txt'
+NUMBER_OF_PROXIES_TO_FETCH = 5  # Controls how many proxies to use
