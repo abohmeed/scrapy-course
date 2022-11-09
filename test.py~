@@ -1,0 +1,5 @@
+import urllib.request
+def download_image(url, file_path, file_name):
+    full_path = file_path + file_name + '.jpg'
+    urllib.urlretrieve(url, full_path)
+download_image("https://images.freeimages.com/images/large-previews/bd1/cat-1404368.jpg",".","myimage")
