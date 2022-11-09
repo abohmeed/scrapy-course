@@ -23,8 +23,8 @@ class PostsSpider(scrapy.Spider):
             desired_capabilities=desired_capabilities, options=options)
         driver.get(self.start_urls[0])
         driver.implicitly_wait(5)
-        i = 10
-        num_scrolls = 1
+        i = 1
+        num_scrolls = 10
         while i <= num_scrolls:
             driver.execute_script(
                 "window.scrollTo(0, document.body.scrollHeight);")
