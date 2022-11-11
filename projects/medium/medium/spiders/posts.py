@@ -14,9 +14,7 @@ class PostsSpider(scrapy.Spider):
     def parse(self, r):
         options = webdriver.FirefoxOptions()
         options.headless = True
-        desired_capabilities = options.capabilities
-        driver = webdriver.Firefox(
-            desired_capabilities=desired_capabilities, options=options)
+        driver = webdriver.Firefox(options=options)
         driver.get(self.start_urls[0])
         driver.implicitly_wait(5)
         i = 1
