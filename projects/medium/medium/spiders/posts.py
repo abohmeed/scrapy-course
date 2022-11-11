@@ -26,7 +26,7 @@ class PostsSpider(scrapy.Spider):
                 "window.scrollTo(0, document.body.scrollHeight);")
             time.sleep(3)
             response = driver.page_source
-            selector = Selector(text=driver.page_source)
+            selector = Selector(text=response)
             containers = selector.xpath("//section//div[@class='ae cx']")
             for c in containers:
                 item = ItemLoader(item=MediumItem(),
