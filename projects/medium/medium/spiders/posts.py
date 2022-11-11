@@ -11,11 +11,7 @@ class PostsSpider(scrapy.Spider):
     allowed_domains = ['medium.com']
     start_urls = ['https://medium.com/']
 
-    def start_requests(self):
-        url = "http://quotes.toscrape.com"
-        yield scrapy.Request(url=url, callback=self.parse_result)
-
-    def parse_result(self, r):
+    def parse(self, r):
         options = webdriver.FirefoxOptions()
         options.headless = True
         desired_capabilities = options.capabilities
