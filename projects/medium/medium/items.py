@@ -11,3 +11,4 @@ class MediumItem(scrapy.Item):
     # name = scrapy.Field()
     title = scrapy.Field(output_processor=Join())
     excerpt = scrapy.Field(output_processor=Join())
+    link = scrapy.Field(output_processor=Join())

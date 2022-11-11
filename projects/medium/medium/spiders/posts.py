@@ -24,7 +24,7 @@ class PostsSpider(scrapy.Spider):
         driver.get(self.start_urls[0])
         driver.implicitly_wait(5)
         i = 1
-        num_scrolls = 10
+        num_scrolls = 1
         while i <= num_scrolls:
             driver.execute_script(
                 "window.scrollTo(0, document.body.scrollHeight);")
@@ -37,6 +37,7 @@ class PostsSpider(scrapy.Spider):
                                   response=response, selector=c)
                 item.add_xpath("title", ".//h2/text()")
                 item.add_xpath("excerpt", ".//h3/text()")
+                item.add_xpath("link", ".//a[h2]/@href")
                 yield item.load_item()
             i = i + 1
         driver.quit()
