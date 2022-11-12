@@ -12,3 +12,4 @@ class YahoofinanceItem(scrapy.Item):
     name = scrapy.Field(output_processor=Join())
     change = scrapy.Field(output_processor=Join())
     timestamp = scrapy.Field(output_processor=Join())
+    
