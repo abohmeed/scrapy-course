@@ -5,6 +5,7 @@ from yahoofinance.items import YahoofinanceItem
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
+from datetime import datetime
 
 class StocksSpider(scrapy.Spider):
     name = 'stocks'
@@ -30,5 +31,6 @@ class StocksSpider(scrapy.Spider):
             item = ItemLoader(item=YahoofinanceItem(),response=response,selector=c)
             item.add_xpath("name",".//a/text()")
             item.add_xpath("change",".//fin-streamer/span/text()")
+            item.add_value("timestamp",datetime.now().timestamp())
             yield item.load_item()
         driver.quit()
