@@ -19,10 +19,17 @@ class PostsSpider(scrapy.Spider):
         driver.implicitly_wait(5)
         i = 1
         num_scrolls = 10
-        while i <= num_scrolls:
+        last_height = driver.execute_script(
+            "return document.body.scrollHeight")
+        while True and i <= num_scrolls:
             driver.execute_script(
                 "window.scrollTo(0, document.body.scrollHeight);")
             time.sleep(3)
+            new_height = driver.execute_script(
+                "return document.body.scrollHeight")
+            if new_height == last_height:
+                break
+            last_height = new_height
             response = driver.page_source
             selector = Selector(text=response)
             containers = selector.xpath("//section//div[@class='ae cx']")
