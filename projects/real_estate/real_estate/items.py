@@ -24,6 +24,10 @@ def description_out(d):
     return output
 
 
+def county_in(c):
+    return c[0].split("Trends")[0].strip("\r\n").strip()
+
+
 class RealEstateItem(scrapy.Item):
     # define the fields for your item here like:
     name = scrapy.Field(output_processor=Join())
@@ -33,3 +37,7 @@ class RealEstateItem(scrapy.Item):
     )
     price = scrapy.Field(output_processor=Join())
     agency = scrapy.Field(output_processor=Join())
+    county = scrapy.Field(input_processor=county_in, output_processor=Join())
+    median_list_price = scrapy.Field(
+        output_processor=Join())
+    timestamp = scrapy.Field(output_processor=Join())

@@ -4,3 +4,5 @@ Lib
 Scripts
 pyvenv.cfg
 *.pyc
+dbs
+*.pid
